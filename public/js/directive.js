@@ -2,7 +2,7 @@
  * 
  */
 
-var myDirective = angular.module('directive',[]);
+var myDirective = angular.module('directive',['ui.bootstrap']);
 
 myDirective.directive("leftMenu", function() {
   

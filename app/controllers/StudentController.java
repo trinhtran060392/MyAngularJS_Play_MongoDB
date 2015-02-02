@@ -23,8 +23,9 @@ public class StudentController extends Controller{
     
     ObjectNode json ;
     ArrayNode array = Json.newObject().arrayNode();
+    int count = 0;
     for (Student s: list) {
-      
+      count ++;
       json = Json.newObject();
       json.put("_id", s.getId());
       json.put("name", s.getName());
@@ -33,6 +34,10 @@ public class StudentController extends Controller{
       json.put("score", s.getScore());
       json.put("total", list.size());
       array.add(json);
+      
+      if (count == 5) {
+        break;
+      }
     }
     
     return ok(array);
@@ -136,7 +141,9 @@ public class StudentController extends Controller{
     ArrayNode array = Json.newObject().arrayNode();
     ObjectNode json ;
     
+    int count = 0;
     for (Student s : listBoy) {
+      count ++;
       json = Json.newObject();
       json.put("_id", s.getId());
       json.put("name", s.getName());
@@ -145,14 +152,17 @@ public class StudentController extends Controller{
       json.put("score", s.getScore());
       json.put("total", listBoy.size());
       array.add(json);
+      if (count == 5) {
+        break;
+      }
     }
     
     return ok(array);
     
   }
   
-public static Result getGirlStudent() {
-    
+  public static Result getGirlStudent() {
+      
     List<Student> listALl = StudentDAO.getStudents();
     List<Student> listGirl = new ArrayList<Student>();
     for (Student s : listALl) {
@@ -160,11 +170,12 @@ public static Result getGirlStudent() {
         listGirl.add(s);
       }
     }
-    
+
     ArrayNode array = Json.newObject().arrayNode();
-    ObjectNode json ;
-    
+    ObjectNode json;
+    int count = 0;
     for (Student s : listGirl) {
+      count++;
       json = Json.newObject();
       json.put("_id", s.getId());
       json.put("name", s.getName());
@@ -173,9 +184,45 @@ public static Result getGirlStudent() {
       json.put("score", s.getScore());
       json.put("total", listGirl.size());
       array.add(json);
+      if (count == 5) {
+        break;
+      }
     }
-    
+
     return ok(array);
     
   }
+
+  public static Result getStudentsByPage(String pageNumber) {
+
+    List<Student> listAll = StudentDAO.getStudents();
+
+    int pageNumberInt = Integer.parseInt(pageNumber);
+
+    List<Student> listStudentByPage = new ArrayList<Student>();
+
+    for (int i = (pageNumberInt - 1) * 5; i < listAll.size()
+        && i < (pageNumberInt * 5); i++) {
+      listStudentByPage.add(listAll.get(i));
+    }
+
+    ObjectNode json;
+    ArrayNode array = Json.newObject().arrayNode();
+
+    for (Student s : listStudentByPage) {
+      json = Json.newObject();
+      json.put("_id", s.getId());
+      json.put("name", s.getName());
+      json.put("age", s.getAge());
+      json.put("classRoom", s.getClassRoom());
+      json.put("score", s.getScore());
+      json.put("total", listAll.size());
+      array.add(json);
+
+    }
+
+    return ok(array);
+
+  }
+
 }

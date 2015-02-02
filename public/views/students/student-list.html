@@ -16,4 +16,17 @@
 			<td>{{student.classRoom}}</td>
 			<td><a href="#/deletestudent/{{student._id}}"><i class="icon-large icon-user-remove"></i></a></td>
 	</tr>
+	
 </table>
+<div style="text-align: center;">
+	<ul class="pagination">
+	  <li>
+	    <a href="#/">&laquo;</a>
+	  </li>
+	  <li ng-repeat-start="page in arrayPage track by $index"><a href="#/students/page/{{$index+1}}">{{$index+1}}</a></li>
+	  <li ng-repeat-end class="divider"></li>
+	  <li>
+	    <a href="#/">&raquo;</a>
+	  </li>
+</ul>
+</div>

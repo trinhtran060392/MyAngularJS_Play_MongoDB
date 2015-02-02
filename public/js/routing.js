@@ -40,6 +40,10 @@ routing.config(['$routeProvider', function($routeProvider) {
       templateUrl: "/assets/views/students/student-list.html",
       controller: GirlStudentController
     }).
+    when('/students/page/:pageNumber', {
+      templateUrl: "/assets/views/students/student-list.html",
+      controller: GetStudentByPageNumberController
+    }).
     otherwise({
       redirectTo: '/'
     });
@@ -51,19 +55,28 @@ function StudentLoginController($scope, $http, $location) {
   $scope.processForm = function (){
     $http.post('/login',$scope.formData).success( function(data) {
       
-       if(data ==="true"){
-        $location.path('/');
-       }
-       else location.reload();
+       if (data ==="true") {
+         $location.path('/');
+       } else location.reload();
     });
   };
 }
 
 function StudentListController($scope, $http) {
 
+  $scope.arrayPage = [];
   $http.get('/liststudent').success( function (data) {
     $scope.students = data;
+    $scope.total = $scope.students[0].total;
+    $scope.myNumberPage = $scope.total / 5;
+    var check = $scope.total % 5;
+    if (check != 0 ) {
+      $scope.myNumberPage = $scope.myNumberPage + 1;
+    }
     
+    for (var i = 1; i <= $scope.myNumberPage; i++) {
+      $scope.arrayPage.push(i);
+    }
   });
 
 }
@@ -126,16 +139,57 @@ function StudentRegisterController($scope, $http, $location,$route) {
 
 function BoyStudentController($scope, $http, $location) {
   
+  $scope.arrayPage = [];
   $http.get('/getBoyStudents').success( function(data) {
     $scope.students = data;
+    $scope.total = $scope.students[0].total;
+    $scope.myNumberPage = $scope.total / 5;
+    var check = $scope.total % 5;
+    if (check != 0 ) {
+      $scope.myNumberPage = $scope.myNumberPage + 1;
+    }
+    
+    for (var i = 1; i <= $scope.myNumberPage; i++) {
+      $scope.arrayPage.push(i);
+    }
   });
 }
 
 function GirlStudentController($scope, $http, $location) {
   
+  $scope.arrayPage = [];
   $http.get('/getGirlStudents').success( function(data) {
     $scope.students = data;
+    $scope.total = $scope.students[0].total;
+    $scope.myNumberPage = $scope.total / 5;
+    var check = $scope.total % 5;
+    if (check != 0 ) {
+      $scope.myNumberPage = $scope.myNumberPage + 1;
+    }
+    
+    for (var i = 1; i <= $scope.myNumberPage; i++) {
+      $scope.arrayPage.push(i);
+    }
   });
 }
 
+function GetStudentByPageNumberController($scope, $http, $routeParams,$location) {
+  
+  $scope.arrayPage = [];
+  $scope.pageNumber = $routeParams.pageNumber;
+  $http.get('/getStudentsByPage/'+$scope.pageNumber).success( function(data) {
+    $scope.students = data;
+    $scope.total = $scope.students[0].total;
+    $scope.myNumberPage = $scope.total / 5;
+    var check = $scope.total % 5;
+    if (check != 0 ) {
+      $scope.myNumberPage = $scope.myNumberPage + 1;
+    }
+    
+    for (var i = 1; i <= $scope.myNumberPage; i++) {
+      $scope.arrayPage.push(i);
+    }
+    //$location.path('/');
+  }).error();
+}
 
