@@ -1,0 +1,35 @@
+<div class="col-md-6 col-md-offset-3">
+	<!-- PAGE TITLE -->
+	<div class="page-header">
+		<h1>
+			<span class="glyphicon glyphicon-tower"></span> Login 
+		</h1>
+	</div>
+	<!-- SHOW ERROR/SUCCESS MESSAGES -->
+	<div id="messages" class="well" ng-show="message"></div>
+	<!-- FORM -->
+	<form ng-submit="processForm()">
+		<!-- NAME -->
+		<div id="name-group" class="form-group">
+			<label>Name</label> <input type="text" name="name"
+				class="form-control" placeholder="Your Account"
+				ng-model="formData.name" required> <span class="help-block"
+				ng-show="errorName"></span>
+		</div>
+		<!-- SUPERHERO NAME -->
+		<div id="superhero-group" class="form-group">
+
+			<label>Password</label><input type="text" name="score" class="form-control"
+				placeholder="Password" ng-model="formData.password"
+				required> <span class="help-block" ng-show="errorSuperhero"></span>
+		</div>
+		<!-- SUBMIT BUTTON -->
+		<button type="submit" class="btn btn-success btn-lg btn-block">
+			<span class="glyphicon glyphicon-flash"></span> Submit!
+		</button>
+	</form>
+	<!-- SHOW DATA FROM INPUTS AS THEY ARE BEING TYPED -->
+	<pre>
+				{{ formData }}
+				</pre>
+</div>

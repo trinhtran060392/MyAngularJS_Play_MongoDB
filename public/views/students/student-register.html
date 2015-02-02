@@ -1,0 +1,53 @@
+<div class="col-md-6 col-md-offset-3">
+	<!-- PAGE TITLE -->
+	<div class="page-header">
+		<h1>
+			<span class="glyphicon glyphicon-tower"></span> {{title}} 
+		</h1>
+	</div>
+	<!-- SHOW ERROR/SUCCESS MESSAGES -->
+	<div id="messages" class="well" ng-show="message"></div>
+	<!-- FORM -->
+	<form ng-submit="processForm()">
+		<!-- NAME -->
+		<div id="name-group" class="form-group">
+			<label>Name</label> <input type="text" name="name" value=""
+				class="form-control" placeholder="Your Account"
+				ng-model="studentUpdateInfo.name" required> <span class="help-block"
+				ng-show="errorName"></span>
+		</div>
+		<!-- SUPERHERO NAME -->
+		<div id="superhero-group" class="form-group">
+
+			<label>Score</label><input type="text" name="score" class="form-control"
+				placeholder="Score" ng-model="studentUpdateInfo.score" value=""
+				required> <span class="help-block" ng-show="errorSuperhero"></span>
+		</div>
+		<div id="superhero-group" class="form-group">
+
+			<label>Age</label><input type="text" name="age" class="form-control"
+				placeholder="Age" ng-model="studentUpdateInfo.age" value=""
+				required> <span class="help-block" ng-show="errorSuperhero"></span>
+		</div>
+		<div id="superhero-group" class="form-group">
+
+			<label>ClassRoom</label><input type="text" name="classRoom" class="form-control"
+				placeholder="class room" ng-model="studentUpdateInfo.classRoom" value=""
+				required> <span class="help-block" ng-show="errorSuperhero"></span>
+		</div>
+		<div id="superhero-group" class="form-group" >
+
+			<label>Password</label><input type="text" name="password" class="form-control" required="required"
+				placeholder="Password" ng-model="studentUpdateInfo.password"
+				> <span class="help-block" ></span>
+		</div>
+		<!-- SUBMIT BUTTON -->
+		<button type="submit" class="btn btn-success btn-lg btn-block">
+			<span class="glyphicon glyphicon-flash"></span> Submit!
+		</button>
+	</form>
+	<!-- SHOW DATA FROM INPUTS AS THEY ARE BEING TYPED -->
+	<pre>
+				{{ formData }}
+				</pre>
+</div>

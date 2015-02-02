@@ -1,0 +1,19 @@
+<search-box></search-box>
+<h2>
+	<a href="#/" class="btn btn-default large">Student <span class="badge">{{students[0].total}}</span></a> <a class="btn btn-default pull-right" href="#/createnew"><i
+		class="icon-large icon-user-add"></i></a>
+</h2>
+<table class="table table-striped">
+	<tr>
+		<td>Name</td>
+		<td>Age</td>
+		<td>ClassRoom</td>
+		<td></td>
+	</tr>
+	<tr ng-repeat="student in students |orderBy:orderProp| filter:query">
+			<td><a href="#/studentsdetail/{{student._id}}">{{student.name}}</a></td>
+			<td>{{student.age}}</td>
+			<td>{{student.classRoom}}</td>
+			<td><a href="#/deletestudent/{{student._id}}"><i class="icon-large icon-user-remove"></i></a></td>
+	</tr>
+</table>

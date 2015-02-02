@@ -1,0 +1,17 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                           controllers.Assets.at(path="/public", file="/index.html")
+GET         /liststudent           		controllers.StudentController.allStudents()
+POST        /newstudent           		controllers.StudentController.createStudent()
+GET         /students/:studentId    	controllers.StudentController.getStudent(studentId)
+GET			/updatestudents/:studentId	controllers.StudentController.updateStudent(studentId)
+PUT			/doupdate/:studentId		controllers.StudentController.doUpdateStudent(studentId)
+POST		/login						controllers.StudentController.checkLogin()
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file        		controllers.Assets.at(path="/public", file)
+DELETE		/deletestudent/:studentId	controllers.StudentController.deleteStudent(studentId)
+GET			/getBoyStudents				controllers.StudentController.getBoyStudent()
+GET			/getGirlStudents			controllers.StudentController.getGirlStudent()

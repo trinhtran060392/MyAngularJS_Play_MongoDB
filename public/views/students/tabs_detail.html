@@ -1,0 +1,58 @@
+<ul id="myTab" class="nav nav-pills">
+   <li class="active">
+      <a href="">Home</a>
+   </li>
+   <li ng-class="{ active:tab.isSet(1) }">
+      <a href ng-click="tab.setTab(1)">
+         Tutorial Point Home
+      </a>
+   </li>
+   <li  ng-class="{ active:tab.isSet(2) }"><a href ng-click="tab.setTab(2)">Register</a></li>
+
+   <li ng-class="{ active:tab.isSet(3) }"><a href ng-click="tab.setTab(3)">iOS</a></li>
+   <li class="dropdown">
+      <a href="#" id="myTabDrop1" class="dropdown-toggle" 
+         data-toggle="dropdown" >Java 
+         <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+         <li  ng-class="{ active:tab.isSet(4) }"><a href tabindex="-1"  ng-click="tab.setTab(4)">jmeter</a></li>
+         <li ng-class="{ active:tab.isSet(5)}"><a href tabindex="-1"   ng-click="tab.setTab(5)">ejb</a></li>
+      </ul>
+   </li>
+    <li class="tabledata" ng-class="{ active:tab.isSet(6) }"><a href ng-click="tab.setTab(6)">Table</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+   <div ng-show="tab.isSet(1)">
+      <p>Tutorials Point is a place for beginners in all technical areas. 
+         This website covers most of the latest technoligies and explains 
+         each of the technology with simple examples. You also have a 
+         <b>tryit</b> editor, wherein you can edit your code and 
+         try out different possibilities of the examples.</p>
+   </div>
+   <div ng-show="tab.isSet(2)">
+      <my-form></my-form>
+   </div>
+   <div ng-show="tab.isSet(3)">
+      <p>iOS is a mobile operating system developed and distributed by Apple 
+         Inc. Originally released in 2007 for the iPhone, iPod Touch, and 
+         Apple TV. iOS is derived from OS X, with which it shares the 
+         Darwin foundation. iOS is Apple's mobile version of the 
+         OS X operating system used on Apple computers.</p>
+   </div>
+   <div  ng-show="tab.isSet(4)">
+      <p>jMeter is an Open Source testing software. It is 100% pure 
+      Java application for load and performance testing.</p>
+   </div>
+   <div ng-show="tab.isSet(5)">
+      <p>Enterprise Java Beans (EJB) is a development architecture 
+         for building highly scalable and robust enterprise level    
+         applications to be deployed on J2EE compliant 
+         Application Server such as JBOSS, Web Logic etc.
+      </p>
+   </div>
+   <div ng-show="tab.isSet(6)">
+      <table-tag></table-tag>
+   </div>
+   
+</div>
