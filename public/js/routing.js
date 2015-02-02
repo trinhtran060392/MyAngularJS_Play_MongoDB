@@ -86,10 +86,9 @@ function StudentUpdateController($scope, $http, $routeParams,$location) {
   });
   
   $scope.processForm = function() {
-    
-    $http.put('/doupdate/'+$scope.studentId,$scope.studentUpdateInfo).success(
-       $location.path('/')
-    ).error();
+    $http.put('/doupdate/'+$scope.studentId, $scope.studentUpdateInfo).success( function(data) {
+      $location.path('/')
+    }).error();
   };
   $scope.isRegister = function (){
     return true;
