@@ -17,15 +17,21 @@ import com.mongodb.BasicDBObject;
 
 public class StudentController extends Controller{
 
-  public static Result allStudents() {
+  public static Result allStudents(String pageNumber) {
     
+    int pageNo = Integer.parseInt(pageNumber);
     List<Student> list = StudentDAO.getStudents();
     
+    List<Student> listByPageNumber = new ArrayList<Student>();
+    
+    for(int i = (pageNo-1) * 5; i < list.size() && i < (pageNo * 5); i++) {
+      
+      listByPageNumber.add(list.get(i));
+    }
     ObjectNode json ;
     ArrayNode array = Json.newObject().arrayNode();
-    int count = 0;
-    for (Student s: list) {
-      count ++;
+    for (Student s: listByPageNumber) {
+  
       json = Json.newObject();
       json.put("_id", s.getId());
       json.put("name", s.getName());
@@ -35,9 +41,6 @@ public class StudentController extends Controller{
       json.put("total", list.size());
       array.add(json);
       
-      if (count == 5) {
-        break;
-      }
     }
     
     return ok(array);
@@ -128,22 +131,28 @@ public class StudentController extends Controller{
     }
   }
   
-  public static Result getBoyStudent() {
+  public static Result getBoyStudent(String pageNumber) {
     
     List<Student> listALl = StudentDAO.getStudents();
     List<Student> listBoy = new ArrayList<Student>();
+    int pageNo = Integer.parseInt(pageNumber);
+
+   
     for (Student s : listALl) {
       if (Integer.parseInt(s.getAge()) > 10) {
         listBoy.add(s);
       }
     }
     
+    List<Student> listBoyByPage = new ArrayList<Student>();
+    for(int i = (pageNo-1) * 5; i < listBoy.size() && i < (pageNo * 5); i++) {
+      
+      listBoyByPage.add(listBoy.get(i));
+    }
     ArrayNode array = Json.newObject().arrayNode();
     ObjectNode json ;
     
-    int count = 0;
-    for (Student s : listBoy) {
-      count ++;
+    for (Student s : listBoyByPage) {
       json = Json.newObject();
       json.put("_id", s.getId());
       json.put("name", s.getName());
@@ -152,30 +161,36 @@ public class StudentController extends Controller{
       json.put("score", s.getScore());
       json.put("total", listBoy.size());
       array.add(json);
-      if (count == 5) {
-        break;
-      }
     }
     
     return ok(array);
     
   }
   
-  public static Result getGirlStudent() {
+  public static Result getGirlStudent(String pageNumber) {
       
+    int pageNo = Integer.parseInt(pageNumber);
+    
     List<Student> listALl = StudentDAO.getStudents();
     List<Student> listGirl = new ArrayList<Student>();
+    List<Student> listGirlByPage = new ArrayList<Student>();
+    
+   
     for (Student s : listALl) {
       if (Integer.parseInt(s.getAge()) < 10) {
         listGirl.add(s);
       }
     }
+    
+    for(int i = (pageNo-1) * 5; i < listGirl.size() && i < (pageNo * 5); i++) {
+      
+      listGirlByPage.add(listGirl.get(i));
+    }
+
 
     ArrayNode array = Json.newObject().arrayNode();
     ObjectNode json;
-    int count = 0;
-    for (Student s : listGirl) {
-      count++;
+    for (Student s : listGirlByPage) {
       json = Json.newObject();
       json.put("_id", s.getId());
       json.put("name", s.getName());
@@ -184,9 +199,6 @@ public class StudentController extends Controller{
       json.put("score", s.getScore());
       json.put("total", listGirl.size());
       array.add(json);
-      if (count == 5) {
-        break;
-      }
     }
 
     return ok(array);
