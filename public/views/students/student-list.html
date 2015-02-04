@@ -10,7 +10,7 @@
 		<td>ClassRoom</td>
 		<td></td>
 	</tr>
-	<tr ng-repeat="student in students |orderBy:orderProp| filter:query">
+	<tr ng-repeat="student in students | orderBy:orderProp | filter:query">
 			<td><a href="#/studentsdetail/{{student._id}}">{{student.name}}</a></td>
 			<td>{{student.age}}</td>
 			<td>{{student.classRoom}}</td>
@@ -18,15 +18,10 @@
 	</tr>
 	
 </table>
-<div style="text-align: center;">
-	<ul class="pagination">
-	  <li>
-	    <a href="#/">&laquo;</a>
-	  </li>
-	  <li ng-repeat-start="page in arrayPage track by $index"><a href="#/students/page/{{$index+1}}">{{$index+1}}</a></li>
-	  <li ng-repeat-end class="divider"></li>
-	  <li>
-	    <a href="#/">&raquo;</a>
-	  </li>
-</ul>
+<div class="mypagination" style="text-align: center;" >
+	<pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page=5 ></pagination>
 </div>
+
+<script>
+
+</script>

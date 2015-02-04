@@ -40,10 +40,6 @@ routing.config(['$routeProvider', function($routeProvider) {
       templateUrl: "/assets/views/students/student-list.html",
       controller: GirlStudentController
     }).
-    when('/students/page/:pageNumber', {
-      templateUrl: "/assets/views/students/student-list.html",
-      controller: GetStudentByPageNumberController
-    }).
     otherwise({
       redirectTo: '/'
     });
@@ -64,21 +60,16 @@ function StudentLoginController($scope, $http, $location) {
 
 function StudentListController($scope, $http) {
 
-  $scope.arrayPage = [];
-  $http.get('/liststudent').success( function (data) {
-    $scope.students = data;
-    $scope.total = $scope.students[0].total;
-    $scope.myNumberPage = $scope.total / 5;
-    var check = $scope.total % 5;
-    if (check != 0 ) {
-      $scope.myNumberPage = $scope.myNumberPage + 1;
-    }
+  pagination($scope);
+  
+  $scope.$watch("currentPage", function() {
+    $http.get('/liststudent/'+$scope.currentPage).success( function (data) {
+      $scope.students = data;
+      $scope.total = $scope.students[0].total;
+      $scope.totalItems = $scope.students[0].total;
+    });
     
-    for (var i = 1; i <= $scope.myNumberPage; i++) {
-      $scope.arrayPage.push(i);
-    }
   });
-
 }
 
 function StudentDetailController($scope, $http, $routeParams) {
@@ -139,57 +130,43 @@ function StudentRegisterController($scope, $http, $location,$route) {
 
 function BoyStudentController($scope, $http, $location) {
   
-  $scope.arrayPage = [];
-  $http.get('/getBoyStudents').success( function(data) {
-    $scope.students = data;
-    $scope.total = $scope.students[0].total;
-    $scope.myNumberPage = $scope.total / 5;
-    var check = $scope.total % 5;
-    if (check != 0 ) {
-      $scope.myNumberPage = $scope.myNumberPage + 1;
-    }
-    
-    for (var i = 1; i <= $scope.myNumberPage; i++) {
-      $scope.arrayPage.push(i);
-    }
+  pagination($scope);
+  
+  $scope.$watch("currentPage", function() {
+    $http.get('/getBoyStudents/'+$scope.currentPage).success( function(data) {
+      $scope.students = data;
+      $scope.total = $scope.students[0].total;
+      $scope.totalItems = $scope.students[0].total;
+    });
   });
+  
 }
 
 function GirlStudentController($scope, $http, $location) {
   
-  $scope.arrayPage = [];
-  $http.get('/getGirlStudents').success( function(data) {
-    $scope.students = data;
-    $scope.total = $scope.students[0].total;
-    $scope.myNumberPage = $scope.total / 5;
-    var check = $scope.total % 5;
-    if (check != 0 ) {
-      $scope.myNumberPage = $scope.myNumberPage + 1;
-    }
-    
-    for (var i = 1; i <= $scope.myNumberPage; i++) {
-      $scope.arrayPage.push(i);
-    }
-  });
-}
-
-function GetStudentByPageNumberController($scope, $http, $routeParams,$location) {
+  pagination($scope);
   
-  $scope.arrayPage = [];
-  $scope.pageNumber = $routeParams.pageNumber;
-  $http.get('/getStudentsByPage/'+$scope.pageNumber).success( function(data) {
-    $scope.students = data;
-    $scope.total = $scope.students[0].total;
-    $scope.myNumberPage = $scope.total / 5;
-    var check = $scope.total % 5;
-    if (check != 0 ) {
-      $scope.myNumberPage = $scope.myNumberPage + 1;
-    }
-    
-    for (var i = 1; i <= $scope.myNumberPage; i++) {
-      $scope.arrayPage.push(i);
-    }
-    //$location.path('/');
-  }).error();
+  $scope.$watch("currentPage", function() {
+    $http.get('/getGirlStudents/'+$scope.currentPage).success( function(data) {
+      $scope.students = data;
+      $scope.total = $scope.students[0].total;
+      $scope.totalItems = $scope.students[0].total;
+    });
+  });
+  
 }
 
+var pagination = function(scope) {
+  
+  scope.totalItems = 0;
+  scope.currentPage = 1;
+
+  scope.setPage = function (pageNo) {
+    scope.currentPage = pageNo;
+  };
+
+  scope.maxSize = 5;
+  scope.bigTotalItems = 175;
+  scope.bigCurrentPage = 1;
+  
+}
