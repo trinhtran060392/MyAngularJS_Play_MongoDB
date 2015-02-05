@@ -40,6 +40,10 @@ routing.config(['$routeProvider', function($routeProvider) {
       templateUrl: "/assets/views/students/student-list.html",
       controller: GirlStudentController
     }).
+    when('/logout', {
+      templateUrl: "/assets/views/students/student-list.html",
+      controller: LogoutController
+    }).
     otherwise({
       redirectTo: '/'
     });
@@ -60,6 +64,7 @@ function StudentLoginController($scope, $http, $location, $cookieStore) {
        }
     });
   };
+  
 }
 
 function StudentListController($scope, $http, $cookieStore) {
@@ -67,6 +72,9 @@ function StudentListController($scope, $http, $cookieStore) {
   $scope.name = $cookieStore.get("name");
   pagination($scope);
   
+  if ($scope.name) {
+    $("#myTab").find("li .glyphicon-registration-mark").replaceWith("<a href='#/logout'>Logout</a>");
+  }
   $scope.$watch("currentPage", function() {
     $http.get('/liststudent/'+$scope.currentPage).success( function (data) {
       $scope.students = data;
@@ -158,6 +166,14 @@ function GirlStudentController($scope, $http, $location) {
       $scope.totalItems = $scope.students[0].total;
     });
   });
+  
+}
+
+function LogoutController($cookieStore, $location) {
+  
+  $cookieStore.remove("name");
+  $("#myTab").find("li.active").replaceWith("<li><a href='#/login' class='glyphicon glyphicon-registration-mark'> Login </a></li>");
+  $location.path('/');
   
 }
 
