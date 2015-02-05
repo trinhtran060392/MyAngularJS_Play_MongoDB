@@ -1,7 +1,7 @@
 /**
  * 
  */
-var routing = angular.module('routing',['ngRoute']);
+var routing = angular.module('routing',['ngRoute','ngCookies']);
 
 
 routing.config(['$routeProvider', function($routeProvider) {
@@ -45,21 +45,26 @@ routing.config(['$routeProvider', function($routeProvider) {
     });
 }]);
 
-function StudentLoginController($scope, $http, $location) {
+function StudentLoginController($scope, $http, $location, $cookieStore) {
  
   $scope.formData = {};
   $scope.processForm = function (){
     $http.post('/login',$scope.formData).success( function(data) {
       
+       $cookieStore.put("name",$scope.formData.name);
        if (data ==="true") {
          $location.path('/');
-       } else location.reload();
+       } else {
+         $cookieStore.remove("name");
+         location.reload();
+       }
     });
   };
 }
 
-function StudentListController($scope, $http) {
+function StudentListController($scope, $http, $cookieStore) {
 
+  $scope.name = $cookieStore.get("name");
   pagination($scope);
   
   $scope.$watch("currentPage", function() {
