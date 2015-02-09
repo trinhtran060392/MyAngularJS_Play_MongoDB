@@ -6,6 +6,8 @@ module.exports = function(config){
     files : [
       'public/js/angular.js',
       'public/js/angular-route.js',
+      'public/js/jquery.min.js',
+      'public/js/bootstrap.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'public/js/**/*.js',
       'test/unit/**/*.js'

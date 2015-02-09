@@ -79,7 +79,28 @@ describe('Student App', function() {
     });
   });
   
+  describe('Student log in test', function() {
+    
+    beforeEach(function() {
+      
+      browser.get('#/login');
+    });
+    it('log in successfully', function() {
+        
+      var name = element(by.model('formData.name'));
+      var pass = element(by.model('formData.password'));
+      
+      name.sendKeys("trinh");
+      pass.sendKeys("trinh");
+      
+      element(by.css('.btn-success')).click();
+      
+      expect(element(by.binding('name')).getText()).toBe('Hi trinh !');
+    });
+  });
+  
 });
+
 
 /*'use strict';
 
