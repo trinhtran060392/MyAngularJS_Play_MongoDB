@@ -75,6 +75,7 @@ function StudentListController($scope, $http, $cookieStore) {
   if ($scope.name) {
     $("#myTab").find("li .glyphicon-registration-mark").replaceWith("<a href='#/logout'>Logout</a>");
   }
+  $scope.orderProp = "name";
   $scope.$watch("currentPage", function() {
     $http.get('/liststudent/'+$scope.currentPage).success( function (data) {
       $scope.students = data;

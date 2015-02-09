@@ -3,16 +3,18 @@
 # ~~~~
 
 # Home page
-GET         /                           controllers.Assets.at(path="/public", file="/index.html")
+GET         /                           controllers.Assets.at(path="/public", file="index.html")
 GET         /liststudent/:pageNumber    controllers.StudentController.allStudents(pageNumber)
 POST        /newstudent           		controllers.StudentController.createStudent()
 GET         /students/:studentId    	controllers.StudentController.getStudent(studentId)
 GET			/updatestudents/:studentId	controllers.StudentController.updateStudent(studentId)
 PUT			/doupdate/:studentId		controllers.StudentController.doUpdateStudent(studentId)
 POST		/login						controllers.StudentController.checkLogin()
-# Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        		controllers.Assets.at(path="/public", file)
-DELETE		/deletestudent/:studentId	controllers.StudentController.deleteStudent(studentId)
+
+DELETE		/deletestudent/:studentId				controllers.StudentController.deleteStudent(studentId)
 GET			/getBoyStudents/:pageNumber				controllers.StudentController.getBoyStudent(pageNumber)
 GET			/getGirlStudents/:pageNumber			controllers.StudentController.getGirlStudent(pageNumber)
 GET			/getStudentsByPage/:pageNumber			controllers.StudentController.getStudentsByPage(pageNumber)
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file        		controllers.Assets.at(path="/public", file)

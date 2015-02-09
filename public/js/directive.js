@@ -24,7 +24,7 @@ myDirective.directive("searchBox", function() {
     restrict: "E",
     templateUrl: "/assets/views/students/search.html",
     controller: function($scope) {
-      $scope.orderProp = 'age';
+     // $scope.orderProp = 'age';
     },
     controllerAs: "search"
   };
