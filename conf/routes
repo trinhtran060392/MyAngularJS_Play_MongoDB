@@ -4,17 +4,17 @@
 
 # Home page
 GET         /                           controllers.Assets.at(path="/public", file="index.html")
-GET         /liststudent/:pageNumber    controllers.StudentController.allStudents(pageNumber)
-POST        /newstudent           		controllers.StudentController.createStudent()
-GET         /students/:studentId    	controllers.StudentController.getStudent(studentId)
-GET			/updatestudents/:studentId	controllers.StudentController.updateStudent(studentId)
-PUT			/doupdate/:studentId		controllers.StudentController.doUpdateStudent(studentId)
-POST		/login						controllers.StudentController.checkLogin()
+GET         /liststudent/:pageNumber    @controllers.Application.allStudents(pageNumber)
+POST        /newstudent           		@controllers.Application.createStudent()
+GET         /students/:studentId    	@controllers.Application.getStudent(studentId)
+GET			/updatestudents/:studentId	@controllers.Application.updateStudent(studentId)
+PUT			/doupdate/:studentId		@controllers.Application.doUpdateStudent(studentId)
+POST		/login						@controllers.Application.checkLogin()
 
-DELETE		/deletestudent/:studentId				controllers.StudentController.deleteStudent(studentId)
-GET			/getBoyStudents/:pageNumber				controllers.StudentController.getBoyStudent(pageNumber)
-GET			/getGirlStudents/:pageNumber			controllers.StudentController.getGirlStudent(pageNumber)
-GET			/getStudentsByPage/:pageNumber			controllers.StudentController.getStudentsByPage(pageNumber)
+DELETE		/deletestudent/:studentId				@controllers.Application.deleteStudent(studentId)
+GET			/getBoyStudents/:pageNumber				@controllers.Application.getBoyStudent(pageNumber)
+GET			/getGirlStudents/:pageNumber			@controllers.Application.getGirlStudent(pageNumber)
+GET			/getStudentsByPage/:pageNumber			@controllers.Application.getStudentsByPage(pageNumber)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        		controllers.Assets.at(path="/public", file)

@@ -6,7 +6,8 @@ libraryDependencies ++= Seq(
   javaJdbc,
   javaEbean,
   cache,
-  "org.mongodb" % "mongo-java-driver" % "2.12.4"
+  "org.mongodb" % "mongo-java-driver" % "2.12.4",
+  "com.google.inject" % "guice" % "4.0-beta"
 )     
 
 play.Project.playJavaSettings
