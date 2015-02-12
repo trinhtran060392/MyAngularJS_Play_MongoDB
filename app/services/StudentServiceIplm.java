@@ -6,24 +6,21 @@ import java.util.List;
 
 import models.Student;
 import models.StudentDAO;
-import modules.StudentModule;
 import play.libs.Json;
 import play.mvc.Controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
+import com.google.inject.Singleton;
 import com.mongodb.BasicDBObject;
 
+@Singleton
 public class StudentServiceIplm extends Controller implements StudentService {
 
   @Inject
-  Injector injector  = Guice.createInjector(new StudentModule());
-  
-  private StudentDAO studentDAO = injector.getInstance(StudentDAO.class);
+  private StudentDAO studentDAO;
   
   public ArrayNode allStudents(String pageNumber) {
     

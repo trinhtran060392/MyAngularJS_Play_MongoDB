@@ -3,12 +3,14 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.inject.Singleton;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import utils.DataFactory;
 
+@Singleton
 public class StudentDAOImpl implements StudentDAO{
 
    public List<Student> getStudents() {
