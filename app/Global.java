@@ -2,10 +2,11 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import controllers.StudentController;
-import controllers.StudentControllerIplm;
 import play.Application;
 import play.GlobalSettings;
+
+import services.StudentService;
+import services.StudentServiceIplm;
 
 public class Global extends GlobalSettings{
 
@@ -18,7 +19,7 @@ public class Global extends GlobalSettings{
       @Override
       protected void configure() {
         // TODO Auto-generated method stub
-        bind(StudentController.class).to(StudentControllerIplm.class);
+        bind(StudentService.class).to(StudentServiceIplm.class);
       }
     });
   }

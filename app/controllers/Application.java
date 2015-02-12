@@ -1,50 +1,57 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.inject.Inject;
 
 import play.mvc.Controller;
 import play.mvc.Result;
+import services.StudentService;
 
 public class Application extends Controller {
 
   @Inject
-  private StudentController studentController;
+  private StudentService studentService;
   
   public Result allStudents(String pageNumber) {
-    return ok(studentController.allStudents(pageNumber));
+    return ok(studentService.allStudents(pageNumber));
   }
+  
   public Result createStudent() {
-    studentController.createStudent();
+    studentService.createStudent();
     return ok();
   }
+  
   public Result getStudent(String id) {
-    return ok(studentController.getStudent(id));
+    return ok(studentService.getStudent(id));
   }
+  
   public Result doUpdateStudent(String id) {
-    studentController.doUpdateStudent(id);
+    studentService.doUpdateStudent(id);
     return ok();
   }
+  
   public Result updateStudent(String id) {
-    return ok(studentController.updateStudent(id));
+    return ok(studentService.updateStudent(id));
   }
+  
   public Result deleteStudent(String id) {
     
-    studentController.deleteStudent(id);
+    studentService.deleteStudent(id);
     return ok();
   }
+  
   public Result checkLogin() {
-    return ok(studentController.checkLogin());
+    return ok(studentService.checkLogin());
   }
+  
   public Result getBoyStudent(String pageNumber) {
-    return ok(studentController.getBoyStudent(pageNumber));
+    return ok(studentService.getBoyStudent(pageNumber));
   }
   
   public Result getGirlStudent(String pageNumber) {
-    return ok(studentController.getGirlStudent(pageNumber));
+    return ok(studentService.getGirlStudent(pageNumber));
   }
+  
   public Result getStudentsByPage(String pageNumber) {
-    return ok(studentController.getStudentsByPage(pageNumber));
+    return ok(studentService.getStudentsByPage(pageNumber));
   }
 }
