@@ -48,7 +48,6 @@ routing.config(['$routeProvider', function($routeProvider) {
     });
 }]);
 
-
 routing.controller('StudentLoginController',['$scope', '$http', '$location', '$cookieStore', function($scope, $http, $location, $cookieStore) {
   $scope.formData = {};
   $scope.processForm = function (){
@@ -92,8 +91,6 @@ routing.controller('StudentDetailController',['$scope', '$http', '$routeParams',
   }).error();
 }]);
 
-
-
 routing.controller('StudentUpdateController',['$scope', '$http', '$routeParams','$location', function($scope, $http, $routeParams,$location) {
   $scope.title= "Update";
   $scope.studentId = $routeParams.studentId;
@@ -118,7 +115,6 @@ routing.controller('StudentDeleteController',['$scope', '$http', '$routeParams',
     $location.path('/');
   }).error();
 }]);
-
 
 routing.controller('StudentRegister',['$scope', function($scope){
   $scope.title = "Register";
