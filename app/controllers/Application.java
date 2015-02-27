@@ -1,5 +1,7 @@
 package controllers;
 
+import modules.AppModule;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -15,7 +17,7 @@ public class Application extends Controller {
   //@Inject
   //private StudentService studentService;
   
-  Injector injector = Guice.createInjector(new AbstractModule(){
+  /*Injector injector = Guice.createInjector(new AbstractModule(){
 
     @Override
     protected void configure() {
@@ -23,8 +25,9 @@ public class Application extends Controller {
       bind(StudentService.class).to(StudentServiceIplm.class);
     }
     
-  });
+  });*/
   
+  Injector injector = Guice.createInjector(new AppModule());
   StudentService studentService = injector.getInstance(StudentService.class);
   public Result allStudents(String pageNumber) {
     return ok(studentService.allStudents(pageNumber));
