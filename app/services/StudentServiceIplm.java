@@ -33,7 +33,7 @@ public class StudentServiceIplm extends Controller implements StudentService {
       
       listByPageNumber.add(list.get(i));
     }
-    ObjectNode json ;
+    ObjectNode json;
     ArrayNode array = Json.newObject().arrayNode();
     for (Student s: listByPageNumber) {
   
