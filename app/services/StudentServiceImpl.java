@@ -17,7 +17,7 @@ import com.google.inject.Singleton;
 import com.mongodb.BasicDBObject;
 
 @Singleton
-public class StudentServiceIplm extends Controller implements StudentService {
+public class StudentServiceImpl extends Controller implements StudentService {
 
   @Inject
   private StudentDAO studentDAO;

@@ -2,33 +2,19 @@ package controllers;
 
 import modules.AppModule;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.StudentService;
-import services.StudentServiceIplm;
 
 public class Application extends Controller {
 
-  //@Inject
-  //private StudentService studentService;
-  
-  /*Injector injector = Guice.createInjector(new AbstractModule(){
-
-    @Override
-    protected void configure() {
-      // TODO Auto-generated method stub
-      bind(StudentService.class).to(StudentServiceIplm.class);
-    }
-    
-  });*/
-  
   Injector injector = Guice.createInjector(new AppModule());
+ 
   StudentService studentService = injector.getInstance(StudentService.class);
+  
   public Result allStudents(String pageNumber) {
     return ok(studentService.allStudents(pageNumber));
   }

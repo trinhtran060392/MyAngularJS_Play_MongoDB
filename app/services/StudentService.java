@@ -7,9 +7,7 @@ package services;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.inject.ImplementedBy;
 
-@ImplementedBy(StudentServiceIplm.class)
 public interface StudentService {
 
   public ArrayNode allStudents(String pageNumber);
