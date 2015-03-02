@@ -1,19 +1,15 @@
 package controllers;
 
-import modules.AppModule;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.StudentService;
 
+import com.google.inject.Inject;
+
 public class Application extends Controller {
 
-  Injector injector = Guice.createInjector(new AppModule());
- 
-  StudentService studentService = injector.getInstance(StudentService.class);
+  @Inject
+  private StudentService studentService;
   
   public Result allStudents(String pageNumber) {
     return ok(studentService.allStudents(pageNumber));
