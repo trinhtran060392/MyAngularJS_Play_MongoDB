@@ -8,20 +8,24 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.DataFactory;
+
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-import utils.DataFactory;
-
 @Singleton
 public class StudentDAOImpl implements StudentDAO{
 
+   @Inject
+   private DataFactory dataFactory;
+   
    public List<Student> getStudents() {
      
      List<Student> list = new ArrayList<Student>();
-     DBCollection coll = DataFactory.getDatabase("AngularJSDemo").getCollection("students");
+     DBCollection coll = dataFactory.getDatabase("AngularJSDemo").getCollection("students");
      
      DBCursor cursor = coll.find();
      Student student;
@@ -37,25 +41,25 @@ public class StudentDAOImpl implements StudentDAO{
    
    public void addStudent(Student student) {
      
-     DBCollection coll = DataFactory.getDatabase("AngularJSDemo").getCollection("students");
+     DBCollection coll = dataFactory.getDatabase("AngularJSDemo").getCollection("students");
      coll.insert(student);
    }
    
    public void updateStudent(Student student) {
      
-     DBCollection coll = DataFactory.getDatabase("AngularJSDemo").getCollection("students");
+     DBCollection coll = dataFactory.getDatabase("AngularJSDemo").getCollection("students");
      coll.save(student);
    }
    
    public void deleteStudent(Student student) {
      
-     DBCollection coll = DataFactory.getDatabase("AngularJSDemo").getCollection("students");
+     DBCollection coll = dataFactory.getDatabase("AngularJSDemo").getCollection("students");
      coll.remove(student);
    }
    
    public Student findById(DBObject query) {
      
-     DBCollection coll = DataFactory.getDatabase("AngularJSDemo").getCollection("students");
+     DBCollection coll = dataFactory.getDatabase("AngularJSDemo").getCollection("students");
      DBObject source = coll.findOne(query);
      return source == null ? null : new Student().from(source); 
      
@@ -63,7 +67,7 @@ public class StudentDAOImpl implements StudentDAO{
    
    public List<Student> find(DBObject query) {
      
-     DBCollection coll = DataFactory.getDatabase("AngularJSDemo").getCollection("students");
+     DBCollection coll = dataFactory.getDatabase("AngularJSDemo").getCollection("students");
      List<Student> list = new ArrayList<Student>();
      DBCursor cursor = coll.find(query);
      while(cursor.hasNext()) {

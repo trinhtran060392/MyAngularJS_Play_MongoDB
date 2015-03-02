@@ -16,11 +16,11 @@ public class DataFactory {
     }
   }
   
-  public static DB getDatabase(String dbName) {
+  public DB getDatabase(String dbName) {
     return client.getDB(dbName);
   }
   
-  public static void dropDatabase(String dbName) {
+  public void dropDatabase(String dbName) {
     client.dropDatabase(dbName);
   }
 }

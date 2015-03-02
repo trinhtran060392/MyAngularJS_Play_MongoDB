@@ -9,6 +9,7 @@ import play.Application;
 import play.GlobalSettings;
 import services.StudentService;
 import services.StudentServiceImpl;
+import utils.DataFactory;
 
 
 public class Global extends GlobalSettings{
@@ -21,9 +22,10 @@ public class Global extends GlobalSettings{
       
       @Override
       protected void configure() {
-        // TODO Auto-generated method stub
+        
         bind(StudentService.class).to(StudentServiceImpl.class);
         bind(StudentDAO.class).to(StudentDAOImpl.class);
+        bind(DataFactory.class).toInstance(new DataFactory());
       }
     });
   }
