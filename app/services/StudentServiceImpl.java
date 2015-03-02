@@ -19,9 +19,13 @@ import com.mongodb.BasicDBObject;
 @Singleton
 public class StudentServiceImpl extends Controller implements StudentService {
 
-  @Inject
+  
   private StudentDAO studentDAO;
   
+  @Inject
+  public StudentServiceImpl(StudentDAO studentDAO) {
+    this.studentDAO = studentDAO;
+  }
   public ArrayNode allStudents(String pageNumber) {
     
     int pageNo = Integer.parseInt(pageNumber);

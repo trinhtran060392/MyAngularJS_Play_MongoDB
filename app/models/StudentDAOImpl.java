@@ -19,9 +19,13 @@ import com.mongodb.DBObject;
 @Singleton
 public class StudentDAOImpl implements StudentDAO{
 
-   @Inject
+   
    private DataFactory dataFactory;
    
+   @Inject
+   public StudentDAOImpl(DataFactory dataFactory) {
+     this.dataFactory = dataFactory;
+   }
    public List<Student> getStudents() {
      
      List<Student> list = new ArrayList<Student>();

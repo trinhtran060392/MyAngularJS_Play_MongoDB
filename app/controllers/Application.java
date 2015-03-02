@@ -8,9 +8,13 @@ import com.google.inject.Inject;
 
 public class Application extends Controller {
 
-  @Inject
+  
   private StudentService studentService;
   
+  @Inject
+  public Application(StudentService studentService) {
+    this.studentService = studentService;
+  }
   public Result allStudents(String pageNumber) {
     return ok(studentService.allStudents(pageNumber));
   }
