@@ -5,12 +5,13 @@
 
 package services;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public interface StudentService {
 
-  public ArrayNode allStudents(String pageNumber);
+  public ArrayNode allStudents();
   
   public void createStudent();
   
@@ -24,12 +25,12 @@ public interface StudentService {
   
   public String checkLogin();
   
-  public ArrayNode getBoyStudent(String pageNumber);
+  public ArrayNode getBoyStudent();
   
-  public ArrayNode getGirlStudent(String pageNumber);
+  public ArrayNode getGirlStudent();
   
   public ArrayNode getStudentsByPage(String pageNumber);
-  
+
 }
 
 

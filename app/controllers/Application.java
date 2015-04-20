@@ -15,8 +15,8 @@ public class Application extends Controller {
   public Application(StudentService studentService) {
     this.studentService = studentService;
   }
-  public Result allStudents(String pageNumber) {
-    return ok(studentService.allStudents(pageNumber));
+  public Result allStudents() {
+    return ok(studentService.allStudents());
   }
   
   public Result createStudent() {
@@ -47,12 +47,12 @@ public class Application extends Controller {
     return ok(studentService.checkLogin());
   }
   
-  public Result getBoyStudent(String pageNumber) {
-    return ok(studentService.getBoyStudent(pageNumber));
+  public Result getBoyStudent() {
+    return ok(studentService.getBoyStudent());
   }
   
-  public Result getGirlStudent(String pageNumber) {
-    return ok(studentService.getGirlStudent(pageNumber));
+  public Result getGirlStudent() {
+    return ok(studentService.getGirlStudent());
   }
   
   public Result getStudentsByPage(String pageNumber) {

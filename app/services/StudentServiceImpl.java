@@ -26,9 +26,10 @@ public class StudentServiceImpl extends Controller implements StudentService {
   public StudentServiceImpl(StudentDAO studentDAO) {
     this.studentDAO = studentDAO;
   }
-  public ArrayNode allStudents(String pageNumber) {
+  public ArrayNode allStudents() {
     
-    int pageNo = Integer.parseInt(pageNumber);
+    System.out.println("using resource");
+    int pageNo = Integer.parseInt("1");
     List<Student> list = studentDAO.getStudents();
     
     List<Student> listByPageNumber = new ArrayList<Student>();
@@ -137,11 +138,12 @@ public class StudentServiceImpl extends Controller implements StudentService {
     }
   }
   
-  public ArrayNode getBoyStudent(String pageNumber) {
+  public ArrayNode getBoyStudent() {
     
+    System.out.println("Boy");
     List<Student> listALl = studentDAO.getStudents();
     List<Student> listBoy = new ArrayList<Student>();
-    int pageNo = Integer.parseInt(pageNumber);
+    int pageNo = Integer.parseInt("1");
 
    
     for (Student s : listALl) {
@@ -173,9 +175,9 @@ public class StudentServiceImpl extends Controller implements StudentService {
     
   }
   
-  public ArrayNode getGirlStudent(String pageNumber) {
+  public ArrayNode getGirlStudent() {
       
-    int pageNo = Integer.parseInt(pageNumber);
+    int pageNo = Integer.parseInt("1");
     
     List<Student> listALl = studentDAO.getStudents();
     List<Student> listGirl = new ArrayList<Student>();

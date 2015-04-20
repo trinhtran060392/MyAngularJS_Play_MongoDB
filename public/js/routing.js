@@ -48,7 +48,7 @@ routing.config(['$routeProvider', function($routeProvider) {
     });
 }]);
 
-routing.controller('StudentLoginController',['$scope', '$http', '$location', '$cookieStore', function($scope, $http, $location, $cookieStore) {
+routing.controller('StudentLoginController',['$scope', '$http', '$location', '$cookieStore', 'Student', function($scope, $http, $location, $cookieStore) {
   $scope.formData = {};
   $scope.processForm = function (){
     $http.post('/login',$scope.formData).success( function(data) {
@@ -64,7 +64,7 @@ routing.controller('StudentLoginController',['$scope', '$http', '$location', '$c
   };
 }]);
 
-routing.controller('StudentListController',['$scope', '$http', '$cookieStore', function($scope, $http, $cookieStore){
+routing.controller('StudentListController',['$scope', '$http', '$cookieStore', 'Student', function($scope, $http, $cookieStore, Student){
   
   $scope.name = $cookieStore.get("name");
   pagination($scope);
@@ -73,47 +73,40 @@ routing.controller('StudentListController',['$scope', '$http', '$cookieStore', f
     $("#myTab").find("li .glyphicon-registration-mark").replaceWith("<a href='#/logout'>Logout</a>");
   }
   $scope.orderProp = "name";
-  $scope.$watch("currentPage", function() {
-    $http.get('/liststudent/'+$scope.currentPage).success( function (data) {
-      $scope.students = data;
-      $scope.total = $scope.students[0].total;
-      $scope.totalItems = $scope.students[0].total;
-    });
-    
-  });
   
+  $scope.students = Student.query();
 }]);
 
-routing.controller('StudentDetailController',['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+routing.controller('StudentDetailController',['$scope', '$http', '$routeParams', 'Student', function($scope, $http, $routeParams, Student) {
   $scope.studentId = $routeParams.studentId;
-  $http.get('/students/'+$scope.studentId).success( function(data) {
-    $scope.studentDetail = data;
-  }).error();
+  
+  $scope.studentDetail = Student.get({id:$scope.studentId});
 }]);
 
-routing.controller('StudentUpdateController',['$scope', '$http', '$routeParams','$location', function($scope, $http, $routeParams,$location) {
+routing.controller('StudentUpdateController',['$scope', '$http', '$routeParams','$location', 'Student', function($scope, $http, $routeParams,$location, Student) {
   $scope.title= "Update";
   $scope.studentId = $routeParams.studentId;
-  $http.get('/updatestudents/'+$scope.studentId).success( function(data) {
-    $scope.studentUpdateInfo = data;
-  });
+  
+  $scope.studentUpdateInfo = Student.get({id:$scope.studentId});
   
   $scope.processForm = function() {
-    $http.put('/doupdate/'+$scope.studentId, $scope.studentUpdateInfo).success( function(data) {
-      $location.path('/')
-    }).error();
-  };
+    console.log($scope.studentUpdateInfo.name);
+    $scope.studentUpdateInfo.$update(function() {
+      $location.path('/');
+    });
+  }
   $scope.isRegister = function (){
     return true;
   }
   
 }]);
 
-routing.controller('StudentDeleteController',['$scope', '$http', '$routeParams','$location', function($scope, $http, $routeParams,$location) {
+routing.controller('StudentDeleteController',['$scope', '$http', '$routeParams','$location', 'Student', function($scope, $http, $routeParams,$location, Student) {
   $scope.studentId = $routeParams.studentId;
-  $http.delete('/deletestudent/'+$scope.studentId).success( function(data) {
+  
+  Student.delete({id:$scope.studentId}, function() {
     $location.path('/');
-  }).error();
+  });
 }]);
 
 routing.controller('StudentRegister',['$scope', function($scope){
@@ -121,12 +114,15 @@ routing.controller('StudentRegister',['$scope', function($scope){
 }]);
 
 
-routing.controller('StudentRegisterController',['$scope', '$http', '$location','$route', function($scope, $http, $location,$route) {
+routing.controller('StudentRegisterController',['$scope', '$http', '$location','$route', 'Student', function($scope, $http, $location,$route, Student) {
   $scope.title = "Register";
+  
+  $scope.studentUpdateInfo = new Student();
+  
   $scope.processForm = function () {
-    $http.post('/newstudent',$scope.studentUpdateInfo).success( function(data) {
-        $location.path('/');
-    }).error();
+    $scope.studentUpdateInfo.$save( function () {
+      $location.path('/');
+    });
   };
   $scope.isRegister = function () {
     return true;
@@ -134,34 +130,22 @@ routing.controller('StudentRegisterController',['$scope', '$http', '$location','
   
 }]);
 
-routing.controller('BoyStudentController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+routing.controller('BoyStudentController', ['$scope', '$http', '$location', 'Boy', function($scope, $http, $location, Boy) {
   
   pagination($scope);
-  $scope.$watch("currentPage", function() {
-    $http.get('/getBoyStudents/'+$scope.currentPage).success( function(data) {
-      $scope.students = data;
-      $scope.total = $scope.students[0].total;
-      $scope.totalItems = $scope.students[0].total;
-    });
-  });
+  $scope.students = Boy.query();
   
 }]);
 
-routing.controller('GirlStudentController',['$scope','$http', '$location', function($scope, $http, $location) {
+routing.controller('GirlStudentController',['$scope','$http', '$location', 'Girl', function($scope, $http, $location, Girl) {
   
   pagination($scope);
   
-  $scope.$watch("currentPage", function() {
-    $http.get('/getGirlStudents/'+$scope.currentPage).success( function(data) {
-      $scope.students = data;
-      $scope.total = $scope.students[0].total;
-      $scope.totalItems = $scope.students[0].total;
-    });
-  });
+  $scope.students = Girl.query();
   
 }]);
 
-routing.controller('LogoutController', ['$cookieStore','$location', function($cookieStore, $location) {
+routing.controller('LogoutController', ['$cookieStore','$location', 'Student', function($cookieStore, $location, Student) {
   $cookieStore.remove("name");
   $("#myTab").find("li.active").replaceWith("<li><a href='#/login' class='glyphicon glyphicon-registration-mark'> Login </a></li>");
   $location.path('/');
