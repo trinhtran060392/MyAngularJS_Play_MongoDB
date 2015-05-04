@@ -1,16 +1,20 @@
-import models.StudentDAO;
-import models.StudentDAOImpl;
+
+import play.Application;
+import play.GlobalSettings;
+import services.SchoolService;
+import services.StudentService;
+import services.entities.factories.ReferenceFactory;
+import services.entities.factories.SchoolFactory;
+import services.entities.factories.StudentFactory;
+import services.entities.references.SchoolReference;
+import services.entities.references.StudentReference;
+import utils.DataFactory;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
-import play.Application;
-import play.GlobalSettings;
-import services.StudentService;
-import services.StudentServiceImpl;
-import utils.DataFactory;
-
+import com.google.inject.TypeLiteral;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 public class Global extends GlobalSettings{
 
@@ -23,8 +27,15 @@ public class Global extends GlobalSettings{
       @Override
       protected void configure() {
         
-        bind(StudentService.class).to(StudentServiceImpl.class);
-        bind(StudentDAO.class).to(StudentDAOImpl.class);
+        install(new FactoryModuleBuilder().build(SchoolFactory.class));
+        install(new FactoryModuleBuilder().build(StudentFactory.class));
+        
+        install(new FactoryModuleBuilder().build(new TypeLiteral<ReferenceFactory<SchoolReference>>(){}));
+        install(new FactoryModuleBuilder().build(new TypeLiteral<ReferenceFactory<StudentReference>>(){}));
+        
+        bind(StudentService.class);
+        bind(SchoolService.class);
+        
         bind(DataFactory.class).toInstance(new DataFactory());
       }
     });
