@@ -2,9 +2,9 @@
 import play.Application;
 import play.GlobalSettings;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.trinhtv3.fsoft.services.module.OrganizationModule;
 
 public class Global extends GlobalSettings{
 
@@ -12,13 +12,8 @@ public class Global extends GlobalSettings{
   
   @Override
   public void onStart(Application application) {
-    injector = Guice.createInjector(new AbstractModule() {
-      
-      @Override
-      protected void configure() {
-        
-      }
-    });
+    injector = Guice.createInjector(new OrganizationModule());
+    
   }
   
   @Override
