@@ -81,6 +81,8 @@ routing.controller('StudentDetailController',['$scope', '$http', '$routeParams',
   $scope.studentId = $routeParams.studentId;
   
   $scope.studentDetail = Student.get({id:$scope.studentId});
+  
+  console.log("detail");
 }]);
 
 routing.controller('StudentUpdateController',['$scope', '$http', '$routeParams','$location', 'Student', function($scope, $http, $routeParams,$location, Student) {

@@ -31,6 +31,7 @@ public class Application extends Controller {
     
     for (Student s : list) {
       object = Json.newObject();
+      object.put("_id", s.getId());
       object.put("name", s.getName());
       object.put("age", s.getAge());
       
@@ -57,14 +58,45 @@ public class Application extends Controller {
   }
   
   public Result getStudent(String id) {
-    return ok();
+    
+    Student student = studentService.findById(id);
+    
+    ObjectNode json = Json.newObject();
+    json.put("_id", student.getId());
+    json.put("name", student.getName());
+    json.put("age", student.getAge());
+    json.put("score", student.getScore());
+    json.put("classRoom", student.getClassRoom());
+    json.put("password", student.getPassword());
+    return ok(json);
   }
   
   public Result doUpdateStudent(String id) {
+    JsonNode json = request().body().asJson();
+    String name = json.findPath("name").asText();
+    String score = json.findPath("score").asText();
+    String age = json.findPath("age").asText();
+    String classRoom = json.findPath("classRoom").asText();
+    String password = json.findPath("password").asText();
+    
+    Student student = studentService.findById(id);
+    
+    student.put("_id", id);
+    student.setName(name);
+    student.put("score", score);
+    student.put("age", age);
+    student.put("classRoom", classRoom);
+    student.put("password", password);
+    studentService.update(student);
+    
     return ok();
+    
   }
   
   public Result deleteStudent(String id) {
+    
+    Student student = studentService.findById(id);
+    studentService.delete(student);
     
     return ok();
   }
