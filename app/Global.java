@@ -1,16 +1,10 @@
-import models.StudentDAO;
-import models.StudentDAOImpl;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 
 import play.Application;
 import play.GlobalSettings;
-import services.StudentService;
-import services.StudentServiceImpl;
-import utils.DataFactory;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.trinhtv3.fsoft.services.module.OrganizationModule;
 
 public class Global extends GlobalSettings{
 
@@ -18,16 +12,8 @@ public class Global extends GlobalSettings{
   
   @Override
   public void onStart(Application application) {
-    injector = Guice.createInjector(new AbstractModule() {
-      
-      @Override
-      protected void configure() {
-        
-        bind(StudentService.class).to(StudentServiceImpl.class);
-        bind(StudentDAO.class).to(StudentDAOImpl.class);
-        bind(DataFactory.class).toInstance(new DataFactory());
-      }
-    });
+    injector = Guice.createInjector(new OrganizationModule());
+    
   }
   
   @Override
